@@ -10,14 +10,14 @@ Flaky tests are tests whose outcome changes without altering the test or the cod
  on these UI flaky tests to identify their root causes, how they manifest, and how they are fixed.
 
 <h2 id="dataset">Dataset</h2>
-<h3 id="rawdata"><a href="https://github.com/ui-flaky-test/ui-flaky-test.github.io/blob/main/dataset.csv">Raw Data</a></h3>
+<h3 id="rawdata"><a href="https://github.com/ui-flaky-test/ui-flaky-test.github.io/blob/main/dataset.csv" style="text-decoration: underline;">Raw Data</a></h3>
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQMCKPqb700Atsbv00iyOuqM_2FZ_fTb4wO7erTn1d3UJw-AEAkrTszjpzy83ixdBrPdy6e6Smo9824/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" loading allowfullscreen width="100%" height="300"></iframe>
-<h3>Figures</h3>
-<p>Table 2 shows the total number of results returned for each of the keywords used in the
+<h2 id="tables">Tables</h2>
+<p id="table2">Table 2 shows the total number of results returned for each of the keywords used in the
  crawling procedure for web projects. It also breaks down the results further by showing the results after appling 
  the keyword filtering. From these found projects, we performed manual inspection on the commits to identify
 those containing real flaky tests.</p>
-<label id="table2"  for="table2">Table 2: Summary of commit info from UI frameworks</label>
+<label   for="table2">Table 2: Summary of commit info from UI frameworks</label>
 <table  class="table table-bordered table-hover table-condensed" name="table2">
     <thead><tr><th title="Field #1">UI Topic</th>
     <th title="Field #2">Projects</th>
@@ -84,14 +84,14 @@ those containing real flaky tests.</p>
 </tbody></table>
 <br/>
 <br/>
-<p>Revised Table 4 presents the revised breakdown of root cause categories and their counts to 
+<p id="revised-table4">Revised Table 4 presents the revised breakdown of root cause categories and their counts to 
  match better with existing work. The high level categories can be further broken down into 
  subcategories. We found that the highest causes of flakiness come from causes under Async Wait.
  <p>In this table, the cells marked in yellow have been changed to reflect new category names
      and counts. The cells in blue are categories that are unique to UI flakiness.
  </p>
 </p>
-<label id="revised-table4" for="revised-table4">Revised Table 4: Summary of Root Cause Categories Found</label>
+<label  for="revised-table4">Revised Table 4: Summary of Root Cause Categories Found</label>
 <table class="table table-bordered table-hover table-condensed" name="revised-table4">
     <thead><tr><th title="Field #1">Root Cause Categories</th>
     <th title="Field #2">Root Cause Subcategories</th>
@@ -193,9 +193,9 @@ those containing real flaky tests.</p>
 </tbody></table>
 <br/>
 <br/>
-<p>Table 4 is the original breakdown of tests by the root cause categories found in our work. 
+<p id="table4">Table 4 is the original breakdown of tests by the root cause categories found in our work. 
 </p>
-<label id="table4" for="table4">Table 4: Summary of Root Cause Categories Found</label>
+<label  for="table4">Table 4: Summary of Root Cause Categories Found</label>
 <table class="table table-bordered table-hover table-condensed" name="table4">
     <thead><tr><th title="Field #1">Root Cause Categories</th>
     <th title="Field #2">Root Cause Subcategories</th>
@@ -290,10 +290,10 @@ those containing real flaky tests.</p>
 </tbody></table>
 <br/>
 <br/>
-<p>Table 5 shows the breakdown of tests by the manifestation strategy uses when reporting
+<p id="table5">Table 5 shows the breakdown of tests by the manifestation strategy uses when reporting
  the flaky test.
 </p>
-<label id="table5" for="table5">Table 5: Summary of Manifestation Categories</label>
+<label  for="table5">Table 5: Summary of Manifestation Categories</label>
 <table class="table table-bordered table-hover table-condensed" name="table5">
     <thead><tr><th title="Field #1">Manifestation Category</th>
     <th title="Field #2">Web</th>
@@ -345,9 +345,9 @@ those containing real flaky tests.</p>
 </tbody></table>
 <br/>
 <br/>
-<p>Table 6 shows the breakdown of the fixing strategies used to mitigate the flaky 
+<p id="table6">Table 6 shows the breakdown of the fixing strategies used to mitigate the flaky 
  behavior in the tests. </p>
-<label id="table6" for="table6">Table 6: Summary of Fixing Categories Found</label>
+<label  for="table6">Table 6: Summary of Fixing Categories Found</label>
 <table class="table table-bordered table-hover table-condensed" name="table6">
     <thead><tr><th title="Field #1">Categories</th>
     <th title="Field #2">Subcategories</th>
@@ -414,11 +414,12 @@ those containing real flaky tests.</p>
 </tbody></table>
 <br/>
 <br/>
+<h2 id="figures">Figures</h2>
 <p id="figure1"> We also try to map root causes to their manifestation and fixing strategies. Based on our observation, 
  flaky tests under each root cause category are reproduced by multiple manifestation strategies, while different 
  fixing strategies are commonly applied to different root causes. In our dataset, each manifestation strategy is correlated 
- to all root cause categories, so we omit the correlation links in the figure.<br/>
- Figure 1 shows the relationship between root causes and fixing strategies.</p>
+ to all root cause categories, so we omit the correlation links in the figure. Figure 1 shows the relationship between root
+  causes and fixing strategies.</p>
 <label for="figure1">Figure 1: Mapping root causes to fixing strategies</label>
 <img name="figure1" src="https://raw.githubusercontent.com/ui-flaky-test/ui-flaky-test.github.io/main/Figures/map.png">
 <br/>
