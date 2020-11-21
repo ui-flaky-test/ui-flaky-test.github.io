@@ -1,0 +1,453 @@
+---
+title: An Empirical Analysis of UI-based Flaky Tests
+layout: default
+---
+
+<h2 id="description">Description</h2>
+Flaky tests are tests whose outcome changes without altering the test or the code under test. These tests become unreliable,
+ and they have been found to impact test-suite in large industrial projects. As a result, these have become an active area of research. 
+ Most of this research focuses on traditional unit tests found in non-interactive, non-UI projects. For this reason, we perform a study
+ on these UI flaky tests to identify their root causes, how they manifest, and how they are fixed.
+
+<h2 id="dataset">Dataset</h2>
+<h3 id="rawdata"><a href="https://github.com/ui-flaky-test/ui-flaky-test.github.io/blob/main/dataset.csv">Raw Data</a></h3>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQMCKPqb700Atsbv00iyOuqM_2FZ_fTb4wO7erTn1d3UJw-AEAkrTszjpzy83ixdBrPdy6e6Smo9824/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" loading allowfullscreen width="100%" height="300"></iframe>
+<h3>Figures</h3>
+<p>Table 2 shows the total number of results returned for each of the keywords used in the
+ crawling procedure for web projects. It also breaks down the results further by showing the results after appling 
+ the keyword filtering. From these found projects, we performed manual inspection on the commits to identify
+those containing real flaky tests.</p>
+<label id="table2"  for="table2">Table 2: Summary of commit info from UI frameworks</label>
+<table  class="table table-bordered table-hover table-condensed" name="table2">
+    <thead><tr><th title="Field #1">UI Topic</th>
+    <th title="Field #2">Projects</th>
+    <th title="Field #3">Commits</th>
+    <th title="Field #4">Flaky Keyword Filtering</th>
+    <th title="Field #5">UI Keyword Filtering</th>
+    </tr></thead>
+    <tbody><tr>
+    <td>web</td>
+    <td align="right">999</td>
+    <td align="right">772901</td>
+    <td align="right">2553</td>
+    <td align="right">210</td>
+    </tr>
+    <tr>
+    <td>angular</td>
+    <td align="right">998</td>
+    <td align="right">407434</td>
+    <td align="right">222</td>
+    <td align="right">19</td>
+    </tr>
+    <tr>
+    <td>vue</td>
+    <td align="right">998</td>
+    <td align="right">344526</td>
+    <td align="right">52</td>
+    <td align="right">1</td>
+    </tr>
+    <tr>
+    <td>react</td>
+    <td align="right">997</td>
+    <td align="right">1110993</td>
+    <td align="right">603</td>
+    <td align="right">30</td>
+    </tr>
+    <tr>
+    <td>svg</td>
+    <td align="right">995</td>
+    <td align="right">135563</td>
+    <td align="right">24</td>
+    <td align="right">1</td>
+    </tr>
+    <tr>
+    <td>bootstrap</td>
+    <td align="right">995</td>
+    <td align="right">98264</td>
+    <td align="right">112</td>
+    <td align="right">0</td>
+    </tr>
+    <tr>
+    <td>d3</td>
+    <td align="right">980</td>
+    <td align="right">106160</td>
+    <td align="right">82</td>
+    <td align="right">1</td>
+    </tr>
+    <tr>
+    <td>emberjs</td>
+    <td align="right">629</td>
+    <td align="right">3961</td>
+    <td align="right">1</td>
+    <td align="right">0</td>
+    </tr>
+</tbody></table>
+<br/>
+<br/>
+<p>Revised Table 4 presents the revised breakdown of root cause categories and their counts to 
+ match better with existing work. The high level categories can be further broken down into 
+ subcategories. We found that the highest causes of flakiness come from causes under Async Wait.
+ <p>In this table, the cells marked in yellow have been changed to reflect new category names
+     and counts. The cells in blue are categories that are unique to UI flakiness.
+ </p>
+</p>
+<label id="revised-table4" for="revised-table4">Revised Table 4: Summary of Root Cause Categories Found</label>
+<table class="table table-bordered table-hover table-condensed" name="revised-table4">
+    <thead><tr><th title="Field #1">Root Cause Categories</th>
+    <th title="Field #2">Root Cause Subcategories</th>
+    <th title="Field #3">Web</th>
+    <th title="Field #4">Mobile</th>
+    <th title="Field #5">total</th>
+    </tr></thead>
+    <tbody><tr>
+    <td style="background-color: #feebb4;">Async Wait</td>
+    <td>Network Resource Loading</td>
+    <td align="right">15</td>
+    <td align="right">4</td>
+    <td align="right">19</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Resource Rendering</td>
+    <td align="right">47</td>
+    <td align="right">14</td>
+    <td align="right">61</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td style="background-color: #bcdaf6;">Animation Timing Issue</td>
+    <td align="right">17</td>
+    <td align="right">9</td>
+    <td align="right">26</td>
+    </tr>
+    <tr>
+    <td>Environment</td>
+    <td>Platform Issue</td>
+    <td align="right">16</td>
+    <td align="right">18</td>
+    <td align="right">34</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td style="background-color: #bcdaf6;">Layout Difference</td>
+    <td align="right" style="background-color: #feebb4;">9</td>
+    <td align="right">1</td>
+    <td align="right" style="background-color: #feebb4;">10</td>
+    </tr>
+    <tr>
+    <td>Test Runner API Issue</td>
+    <td style="background-color: #bcdaf6;">DOM Selector Issue</td>
+    <td align="right">13</td>
+    <td align="right">3</td>
+    <td align="right">16</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Incorrect Test Runner Interaction</td>
+    <td align="right">10</td>
+    <td align="right">14</td>
+    <td align="right">24</td>
+    </tr>
+    <tr>
+    <td>Test Script Logic Issue</td>
+    <td style="background-color: #feebb4;">Unordered Collections</td>
+    <td align="right" style="background-color: #feebb4;">5</td>
+    <td align="right" style="background-color: #feebb4;">0</td>
+    <td align="right" style="background-color: #feebb4;">5</td>
+    </tr>
+    <tr>
+    <td></td>
+    <td style="background-color: #feebb4;">Time</td>
+    <td align="right" style="background-color: #feebb4;">1</td>
+    <td align="right" style="background-color: #feebb4;">0</td>
+    <td align="right" style="background-color: #feebb4;">1</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Incorrect Resource Load Order</td>
+    <td align="right">11</td>
+    <td align="right">11</td>
+    <td align="right">22</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td style="background-color: #feebb4;">Test Order Dependency</td>
+    <td align="right" style="background-color: #feebb4;">6</td>
+    <td align="right" style="background-color: #feebb4;">6</td>
+    <td align="right" style="background-color: #feebb4;">12</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td style="background-color: #feebb4;">Randomness</td>
+    <td align="right">2</td>
+    <td align="right">3</td>
+    <td align="right">5</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Total</td>
+    <td align="right">152</td>
+    <td align="right">83</td>
+    <td align="right">235</td>
+    </tr>
+</tbody></table>
+<br/>
+<br/>
+<p>Table 4 is the original breakdown of tests by the root cause categories found in our work. 
+</p>
+<label id="table4" for="table4">Table 4: Summary of Root Cause Categories Found</label>
+<table class="table table-bordered table-hover table-condensed" name="table4">
+    <thead><tr><th title="Field #1">Root Cause Categories</th>
+    <th title="Field #2">Root Cause Subcategories</th>
+    <th title="Field #3">Web</th>
+    <th title="Field #4">Mobile</th>
+    <th title="Field #5">total</th>
+    </tr></thead>
+    <tbody><tr>
+    <td>Timing Issue</td>
+    <td>Network Resource Loading</td>
+    <td align="right">15</td>
+    <td align="right">4</td>
+    <td align="right">19</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Resource Rendering</td>
+    <td align="right">47</td>
+    <td align="right">14</td>
+    <td align="right">61</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Animation Timing Issue</td>
+    <td align="right">17</td>
+    <td align="right">9</td>
+    <td align="right">26</td>
+    </tr>
+    <tr>
+    <td>Environment</td>
+    <td>Platform Issue</td>
+    <td align="right">16</td>
+    <td align="right">18</td>
+    <td align="right">34</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Layout Difference</td>
+    <td align="right">8</td>
+    <td align="right">1</td>
+    <td align="right">9</td>
+    </tr>
+    <tr>
+    <td>Test Runner API Issue</td>
+    <td>DOM Selector Issue</td>
+    <td align="right">13</td>
+    <td align="right">3</td>
+    <td align="right">16</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Incorrect Test Runner Interaction</td>
+    <td align="right">10</td>
+    <td align="right">14</td>
+    <td align="right">24</td>
+    </tr>
+    <tr>
+    <td>Test Script Logic Issue</td>
+    <td>Strict Comparison Checks</td>
+    <td align="right">8</td>
+    <td align="right">1</td>
+    <td align="right">9</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Incorrect Resource Load Order</td>
+    <td align="right">11</td>
+    <td align="right">11</td>
+    <td align="right">22</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Stale Data</td>
+    <td align="right">5</td>
+    <td align="right">5</td>
+    <td align="right">10</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Random Data Edge Case</td>
+    <td align="right">2</td>
+    <td align="right">3</td>
+    <td align="right">5</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Total</td>
+    <td align="right">152</td>
+    <td align="right">83</td>
+    <td align="right">235</td>
+    </tr>
+</tbody></table>
+<br/>
+<br/>
+<p>Table 5 shows the breakdown of tests by the manifestation strategy uses when reporting
+ the flaky test.
+</p>
+<label id="table5" for="table5">Table 5: Summary of Manifestation Categories</label>
+<table class="table table-bordered table-hover table-condensed" name="table5">
+    <thead><tr><th title="Field #1">Manifestation Category</th>
+    <th title="Field #2">Web</th>
+    <th title="Field #3">Mobile</th>
+    <th title="Field #4">Total</th>
+    </tr></thead>
+    <tbody><tr>
+    <td>Unspecified</td>
+    <td align="right">101</td>
+    <td align="right">40</td>
+    <td align="right">141   </td>
+    </tr>
+    <tr>
+    <td>Specify Problematic Platform</td>
+    <td align="right">21</td>
+    <td align="right">17</td>
+    <td align="right">38     </td>
+    </tr>
+    <tr>
+    <td>Reorder/Prune Test Suite</td>
+    <td align="right">9</td>
+    <td align="right">3</td>
+    <td align="right">12     </td>
+    </tr>
+    <tr>
+    <td>Reset Configuration Between Tests</td>
+    <td align="right">2</td>
+    <td align="right">7</td>
+    <td align="right">9     </td>
+    </tr>
+    <tr>
+    <td>Provide Code Snippet</td>
+    <td align="right">14</td>
+    <td align="right">6</td>
+    <td align="right">20     </td>
+    </tr>
+    <tr>
+    <td>Force Environment Conditions</td>
+    <td align="right">5</td>
+    <td align="right">10</td>
+    <td align="right">15      </td>
+    </tr>
+    <tr>
+    <td>Totals</td>
+    <td align="right">152</td>
+    <td align="right">83</td>
+    <td align="right">235      </td>
+    </tr>
+</tbody></table>
+<br/>
+<br/>
+<p>Table 6 shows the breakdown of the fixing strategies used to mitigate the flaky 
+ behavior in the tests. </p>
+<label id="table6" for="table6">Table 6: Summary of Fixing Categories Found</label>
+<table class="table table-bordered table-hover table-condensed" name="table6">
+    <thead><tr><th title="Field #1">Categories</th>
+    <th title="Field #2">Subcategories</th>
+    <th title="Field #3">Web</th>
+    <th title="Field #4">Mobile</th>
+    <th title="Field #5">Total</th>
+    </tr></thead>
+    <tbody><tr>
+    <td>Delay</td>
+    <td>Add/Increase Delay</td>
+    <td align="right">14</td>
+    <td align="right">7</td>
+    <td align="right">21 </td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Fix Await Mechanism</td>
+    <td align="right">35</td>
+    <td align="right">8</td>
+    <td align="right">43</td>
+    </tr>
+    <tr>
+    <td>Dependency</td>
+    <td>Fix API Access</td>
+    <td align="right">1</td>
+    <td align="right">12</td>
+    <td align="right">13</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Change Library Version</td>
+    <td align="right">1</td>
+    <td align="right">6</td>
+    <td align="right">7</td>
+    </tr>
+    <tr>
+    <td>Refactor Test</td>
+    <td>Refactor Logic Implementation</td>
+    <td align="right">49</td>
+    <td align="right">26</td>
+    <td align="right">75</td>
+    </tr>
+    <tr>
+    <td>Disable Features</td>
+    <td>Disable Animations</td>
+    <td align="right">1</td>
+    <td align="right">3</td>
+    <td align="right">4</td>
+    </tr>
+    <tr>
+    <td>Remove Test</td>
+    <td>Remove Test</td>
+    <td align="right">51</td>
+    <td align="right">22</td>
+    <td align="right">73</td>
+    </tr>
+    <tr>
+    <td> </td>
+    <td>Total</td>
+    <td align="right">152</td>
+    <td align="right">84</td>
+    <td align="right">236</td>
+    </tr>
+</tbody></table>
+<br/>
+<br/>
+<p id="figure1"> We also try to map root causes to their manifestation and fixing strategies. Based on our observation, 
+ flaky tests under each root cause category are reproduced by multiple manifestation strategies, while different 
+ fixing strategies are commonly applied to different root causes. In our dataset, each manifestation strategy is correlated 
+ to all root cause categories, so we omit the correlation links in the figure.<br/>
+ Figure 1 shows the relationship between root causes and fixing strategies.</p>
+<label for="figure1">Figure 1: Mapping root causes to fixing strategies</label>
+<img name="figure1" src="https://raw.githubusercontent.com/ui-flaky-test/ui-flaky-test.github.io/main/Figures/map.png">
+<br/>
+<br/>
+<p id="figure2">Figure 2 is an example of a Network Resource Loading issue found in the 
+<a href="https://github.com/influxdata/influxdb">influxdb</a> project.
+The test fails due to attempting to interact with an updated UI during an incomplete network response.</p>
+<label  for="figure2">Figure 2</label>
+<a href="https://github.com/influxdata/influxdb/issues/16141">
+    <img name="figure2" src="https://raw.githubusercontent.com/ui-flaky-test/ui-flaky-test.github.io/main/Figures/influxfb-rc-og.png">
+</a>
+<br/>
+<br/>
+<p></p>
+<p>Figure 5 presents an Animation Timing issue within the <a href="https://github.com/plotly/plotly.js">plotly.js</a>
+ where the transition effect applied in a bar chart is behaving incorrectly.</p>
+<label id="figure5" for="figure5">Figure 5</label>
+<a href="https://github.com/plotly/plotly.js/issues/4251">
+    <img name="figure5" src="https://raw.githubusercontent.com/ui-flaky-test/ui-flaky-test.github.io/main/Figures/plotly.gif">
+</a>
+<br/>
+<br/>
+<p id="figure7">Figure 7 shows the log of a Continuous Integration system from within the 
+<a href="https://github.com/rjsf-team/react-jsonschema-form">react-jsonschema-form</a> project. 
+It shows a Time issue where the comparsion between two timestamps is too strict.
+</p>
+<label  for="figure7">Figure 7</label>
+<a href="https://github.com/rjsf-team/react-jsonschema-form/issues/162"> 
+    <img name="figure7" src="https://raw.githubusercontent.com/ui-flaky-test/ui-flaky-test.github.io/main/Figures/react-jsonschema-forms-rc.png">
+</a>
+<br/>
+<br/>
