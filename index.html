@@ -12,6 +12,9 @@ Flaky tests are tests whose outcome changes without altering the test or the cod
 <h2 id="dataset">Dataset</h2>
 <h3 id="rawdata"><a href="https://github.com/ui-flaky-test/ui-flaky-test.github.io/blob/main/dataset.csv" style="text-decoration: underline;">Raw Data</a></h3>
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQMCKPqb700Atsbv00iyOuqM_2FZ_fTb4wO7erTn1d3UJw-AEAkrTszjpzy83ixdBrPdy6e6Smo9824/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" loading allowfullscreen width="100%" height="300"></iframe>
+
+<link href="/static/css/2.fe708519.chunk.css" rel="stylesheet"><link href="/static/css/main.6a329955.chunk.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(e){function r(r){for(var n,p,l=r[0],a=r[1],f=r[2],c=0,s=[];c<l.length;c++)p=l[c],Object.prototype.hasOwnProperty.call(o,p)&&o[p]&&s.push(o[p][0]),o[p]=0;for(n in a)Object.prototype.hasOwnProperty.call(a,n)&&(e[n]=a[n]);for(i&&i(r);s.length;)s.shift()();return u.push.apply(u,f||[]),t()}function t(){for(var e,r=0;r<u.length;r++){for(var t=u[r],n=!0,l=1;l<t.length;l++){var a=t[l];0!==o[a]&&(n=!1)}n&&(u.splice(r--,1),e=p(p.s=t[0]))}return e}var n={},o={1:0},u=[];function p(r){if(n[r])return n[r].exports;var t=n[r]={i:r,l:!1,exports:{}};return e[r].call(t.exports,t,t.exports,p),t.l=!0,t.exports}p.m=e,p.c=n,p.d=function(e,r,t){p.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},p.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},p.t=function(e,r){if(1&r&&(e=p(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(p.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)p.d(t,n,function(r){return e[r]}.bind(null,n));return t},p.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return p.d(r,"a",r),r},p.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},p.p="/";var l=this["webpackJsonpweb-app"]=this["webpackJsonpweb-app"]||[],a=l.push.bind(l);l.push=r,l=l.slice();for(var f=0;f<l.length;f++)r(l[f]);var i=a;t()}([])</script><script src="/static/js/2.8193141a.chunk.js"></script><script src="/static/js/main.9da40caa.chunk.js">
+
 <h2 id="tables">Tables</h2>
 <p id="table2">Table 2 shows the total number of results returned for each of the keywords used in the
  crawling procedure for web projects. It also breaks down the results further by showing the results after appling 
@@ -84,14 +87,14 @@ those containing real flaky tests.</p>
 </tbody></table>
 <br/>
 <br/>
-<p id="revised-table4">Revised Table 4 presents the revised breakdown of root cause categories and their counts to 
+<p id="revised-table4">Table 4 presents the revised breakdown of root cause categories and their counts to 
  match better with existing work. The high level categories can be further broken down into 
  subcategories. We found that the highest causes of flakiness come from causes under Async Wait.
  <p>In this table, the cells marked in yellow have been changed to reflect new category names
      and counts. The cells in blue are categories that are unique to UI flakiness.
  </p>
 </p>
-<label  for="revised-table4">Revised Table 4: Summary of Root Cause Categories Found</label>
+<label  for="revised-table4">Table 4: Summary of Root Cause Categories Found</label>
 <table class="table table-bordered table-hover table-condensed" name="revised-table4">
     <thead><tr><th title="Field #1">Root Cause Categories</th>
     <th title="Field #2">Root Cause Subcategories</th>
@@ -179,103 +182,6 @@ those containing real flaky tests.</p>
     <tr>
     <td> </td>
     <td style="background-color: #feebb4;">Randomness</td>
-    <td align="right">2</td>
-    <td align="right">3</td>
-    <td align="right">5</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Total</td>
-    <td align="right">152</td>
-    <td align="right">83</td>
-    <td align="right">235</td>
-    </tr>
-</tbody></table>
-<br/>
-<br/>
-<p id="table4">Table 4 is the original breakdown of tests by the root cause categories found in our work. 
-</p>
-<label  for="table4">Table 4: Summary of Root Cause Categories Found</label>
-<table class="table table-bordered table-hover table-condensed" name="table4">
-    <thead><tr><th title="Field #1">Root Cause Categories</th>
-    <th title="Field #2">Root Cause Subcategories</th>
-    <th title="Field #3">Web</th>
-    <th title="Field #4">Mobile</th>
-    <th title="Field #5">total</th>
-    </tr></thead>
-    <tbody><tr>
-    <td>Timing Issue</td>
-    <td>Network Resource Loading</td>
-    <td align="right">15</td>
-    <td align="right">4</td>
-    <td align="right">19</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Resource Rendering</td>
-    <td align="right">47</td>
-    <td align="right">14</td>
-    <td align="right">61</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Animation Timing Issue</td>
-    <td align="right">17</td>
-    <td align="right">9</td>
-    <td align="right">26</td>
-    </tr>
-    <tr>
-    <td>Environment</td>
-    <td>Platform Issue</td>
-    <td align="right">16</td>
-    <td align="right">18</td>
-    <td align="right">34</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Layout Difference</td>
-    <td align="right">8</td>
-    <td align="right">1</td>
-    <td align="right">9</td>
-    </tr>
-    <tr>
-    <td>Test Runner API Issue</td>
-    <td>DOM Selector Issue</td>
-    <td align="right">13</td>
-    <td align="right">3</td>
-    <td align="right">16</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Incorrect Test Runner Interaction</td>
-    <td align="right">10</td>
-    <td align="right">14</td>
-    <td align="right">24</td>
-    </tr>
-    <tr>
-    <td>Test Script Logic Issue</td>
-    <td>Strict Comparison Checks</td>
-    <td align="right">8</td>
-    <td align="right">1</td>
-    <td align="right">9</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Incorrect Resource Load Order</td>
-    <td align="right">11</td>
-    <td align="right">11</td>
-    <td align="right">22</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Stale Data</td>
-    <td align="right">5</td>
-    <td align="right">5</td>
-    <td align="right">10</td>
-    </tr>
-    <tr>
-    <td> </td>
-    <td>Random Data Edge Case</td>
     <td align="right">2</td>
     <td align="right">3</td>
     <td align="right">5</td>
